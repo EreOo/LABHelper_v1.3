@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.odis.address.view.RootLayoutController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Файл">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleNew" text="Новый" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Открыть" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Сохранить" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="Сохранить как..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Выход" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="О программе">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="Lab Helber" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>
