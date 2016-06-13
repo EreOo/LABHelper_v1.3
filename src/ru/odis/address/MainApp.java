@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
-import java.nio.channels.OverlappingFileLockException;
 import java.util.prefs.Preferences;
 
 import javax.xml.bind.JAXBContext;
@@ -36,7 +35,8 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    
+    FileChannel channel;
+  
     
 
     // Список расходников.
@@ -51,11 +51,15 @@ public class MainApp extends Application {
      
     @Override
 	public void stop() throws Exception {
-		
-    	File personFile = this.getFilePath();
-        if (personFile != null) {
+	
+    	channel.close();
+    	try{
+   	File personFile = this.getFilePath();
+       if (personFile != null) {
             this.savePersonDataToFile(personFile);
-         } 
+        } }catch(Exception e){
+        	//ничего не делать
+        }
 	}
 
 
@@ -286,6 +290,14 @@ public class MainApp extends Application {
     	
     	
         try {
+        	
+        	
+      
+        	 channel = new RandomAccessFile(file, "rw").getChannel();
+
+           
+             
+             
         	JAXBContext context = JAXBContext
                     .newInstance(ListWrapper.class);
             Unmarshaller um = context.createUnmarshaller();
@@ -299,7 +311,8 @@ public class MainApp extends Application {
             // Сохраняем путь к файлу в реестре.
             setFilePath(file);
             
-            
+            channel.lock();
+           
 
         } catch (Exception e) {
         	// Ловим ошибки
@@ -308,7 +321,7 @@ public class MainApp extends Application {
             alert.setTitle("Внимание");
             alert.setHeaderText(null);
             alert.initOwner(primaryStage);
-            alert.setContentText("Таблиц открыта другим пользователем. \nДождитесь окончания сеанса.");
+            alert.setContentText("Таблиц открыта другим пользователем. \nЗакройте приложение и дождитесь окончания сеанса.");
 
             alert.showAndWait();
         }
@@ -322,6 +335,7 @@ public class MainApp extends Application {
     public void savePersonDataToFile(File file) {
 
         try {
+        	
             JAXBContext context = JAXBContext
                     .newInstance(ListWrapper.class);
             Marshaller m = context.createMarshaller();
@@ -336,11 +350,13 @@ public class MainApp extends Application {
 
             // Сохраняем путь к файлу в реестре.
             setFilePath(file);
+            
         } catch (Exception e) { 
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Ошибка");
             alert.setHeaderText(null);
-            alert.setContentText("Невозможно сохранить данные:\n" + file.getPath());
+            alert.initOwner(primaryStage);
+            alert.setContentText("");
 
             alert.showAndWait();
         }
