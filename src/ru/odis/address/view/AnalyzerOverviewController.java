@@ -2,12 +2,8 @@ package ru.odis.address.view;
 
 import java.io.File;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.Period;
-import java.util.ArrayList;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
@@ -15,17 +11,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
-import javafx.util.converter.LocalDateTimeStringConverter;
 import ru.odis.address.MainApp;
 import ru.odis.address.model.Analyzer;
 import ru.odis.address.util.DateUtil;
@@ -49,7 +40,7 @@ public class AnalyzerOverviewController {
 	    @FXML
 	    private Label materialNameLabel;
 	    @FXML
-	    private Label idMAterialLabel;
+	    private Label idMaterialLabel;
 	    @FXML
 	    private Label countBoxLabel;
 	    @FXML
@@ -64,7 +55,7 @@ public class AnalyzerOverviewController {
 	    @FXML
 	    private TextField filterField ;
 	    @FXML
-	    private TextArea chengeTime;
+	    private TextArea changeTime;
 	    
 	    
 	    //setter TableView
@@ -197,14 +188,14 @@ public class AnalyzerOverviewController {
 	            // Заполняем метки информацией из объекта анализатор.
 	            analyzerNameLable.setText(analyzer.getAnalyzerName());
 	            materialNameLabel.setText(analyzer.getMaterialName());
-	            idMAterialLabel.setText(analyzer.getIdMAterial());
+	            idMaterialLabel.setText(analyzer.getIdMaterial());
 	            countBoxLabel.setText(Integer.toString(analyzer.getСountBox()));
 	            countINTOBoxLabel.setText(Integer.toString(analyzer.getСountINTOBox()));
 	            expLabel.setText(DateUtil.format(analyzer.getExp()));
 	            addDateLabel.setText(DateUtil.format(analyzer.getDateAdd()));
 	            typeMaterial.setText(analyzer.getTypeMaterial());
 	         
-	            chengeTime.setText(analyzer.getChengeTime());
+	            changeTime.setText(analyzer.getChangeTime());
 	            
          
 	             
@@ -212,13 +203,13 @@ public class AnalyzerOverviewController {
 	            // Если analyzer = null, то убираем весь текст.
 	        	analyzerNameLable.setText("");
 	            materialNameLabel.setText("");
-	            idMAterialLabel.setText("");
+	            idMaterialLabel.setText("");
 	            countBoxLabel.setText("");
 	            countINTOBoxLabel.setText("");
 	            expLabel.setText("");
 	            addDateLabel.setText("");
 	            typeMaterial.setText("");
-	            chengeTime.clear();
+	            changeTime.clear();
 	        }
 	    }
 	    

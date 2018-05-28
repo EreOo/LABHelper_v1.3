@@ -10,10 +10,11 @@ import ru.odis.address.MainApp;
 import ru.odis.address.model.Analyzer;
 
 
-//Контроллер для корневого макета. Корневой макет предоставляет базовый
-//  макет приложения, содержащий строку меню и место, где будут размещены
-//  остальные элементы JavaFX.
-
+/**
+ * Контроллер для корневого макета. Корневой макет предоставляет базовый
+ * макет приложения, содержащий строку меню и место, где будут размещены
+ * остальные элементы JavaFX.
+ */
 public class RootLayoutController {
 
     // Ссылка на главное приложение
@@ -21,7 +22,7 @@ public class RootLayoutController {
 
     /**
      * Вызывается главным приложением, чтобы оставить ссылку на самого себя.
-     * 
+     *
      * @param mainApp
      */
     public void setMainApp(MainApp mainApp) {
@@ -43,7 +44,6 @@ public class RootLayoutController {
      */
     @FXML
     private void handleOpen() {
-    	 
         FileChooser fileChooser = new FileChooser();
 
         // Задаём фильтр расширений
@@ -98,35 +98,32 @@ public class RootLayoutController {
         }
     }
 
-    
     @FXML
     private void handleAbout() {
-    
         Alert alert = new Alert(AlertType.INFORMATION);
-       alert.setTitle("LABHelper");
-    	alert.initOwner(mainApp.getPrimaryStage());
+        alert.setTitle("LABHelper");
+        alert.initOwner(mainApp.getPrimaryStage());
         alert.setHeaderText("Спасибо, что установили и пользуетесь LAB Helper.");
-       alert.setContentText("LAB Helper - это open source проект для оптимизации инвентарного учета в лаборатории. \n\n"
-       		+ "Если у Вас возникли вопросы - обратитесь к руководству, которое находится в корневой папке программы.\n\n"
-       		+ "Так же вы можете связаться с разработчиком по ел. почте LabHelperSupport@gmail.com \n\n\n"
-       		+ "by Vladimir Shekhavtsov 2016.");
-      
+        alert.setContentText("LAB Helper - это open source проект для оптимизации инвентарного учета в лаборатории. \n\n"
+                + "Если у Вас возникли вопросы - обратитесь к руководству, которое находится в корневой папке программы.\n\n"
+                + "Так же вы можете связаться с разработчиком по ел. почте LabHelperSupport@gmail.com \n\n\n"
+                + "by Vladimir Shekhavtsov 2016.");
+
         alert.showAndWait();
     }
 
-    
     @FXML
     private void handleExit() {
-    	handleSave();
+        handleSave();
         System.exit(0);
     }
-    
-  //новая запись в таблицу
+
+    //новая запись в таблицу
     @FXML
     private void newAnalyzer() {
-     
+
         boolean okClicked = mainApp.showAddDialog();
-       
+
     }
 
 }

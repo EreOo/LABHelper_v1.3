@@ -1,7 +1,6 @@
 package ru.odis.address.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -14,47 +13,46 @@ import javafx.beans.property.StringProperty;
 import ru.odis.address.util.LocalDateAdapter;
 
 public class Analyzer {
-	private final StringProperty analyzerName;
-	private final StringProperty typeMaterial;
+    private final StringProperty analyzerName;
+    private final StringProperty typeMaterial;
     private final StringProperty materialName;
-    private final StringProperty idMAterial;
+    private final StringProperty idMaterial;
     private final IntegerProperty countBox;
     private final IntegerProperty countINTOBox;
     private final ObjectProperty<LocalDate> dateAdd;
     private final ObjectProperty<LocalDate> exp;
-    private final StringProperty chengeTime;
-    
-    
+    private final StringProperty changeTime;
+
+
     //конструктор по умолчанию
-	public Analyzer() {
-		this(null,null);
-	}
-	
-	//неполный конструктор 
-	public Analyzer(String analyzer, String material)
-	{
-		this.analyzerName = new SimpleStringProperty(analyzer);
-		this.materialName = new SimpleStringProperty(material);
-		
-		//инфо для тестирования
-		
-		this.idMAterial = new SimpleStringProperty("B1111-94");
-		this.countBox = new SimpleIntegerProperty(30);
-		this.countINTOBox = new SimpleIntegerProperty(20);
-		this.exp = new SimpleObjectProperty<LocalDate>(LocalDate.of(2016, 5, 16));
-		this.dateAdd = new SimpleObjectProperty<LocalDate>(LocalDate.now());
-		this.typeMaterial = new SimpleStringProperty("Тест система");
-		this.chengeTime = new SimpleStringProperty("");
-	
-        
-	}
-	
+    public Analyzer() {
+        this(null, null);
+    }
+
+    //неполный конструктор
+    public Analyzer(String analyzer, String material) {
+        this.analyzerName = new SimpleStringProperty(analyzer);
+        this.materialName = new SimpleStringProperty(material);
+
+        //инфо для тестирования
+
+        this.idMaterial = new SimpleStringProperty("B1111-94");
+        this.countBox = new SimpleIntegerProperty(30);
+        this.countINTOBox = new SimpleIntegerProperty(20);
+        this.exp = new SimpleObjectProperty<LocalDate>(LocalDate.of(2016, 5, 16));
+        this.dateAdd = new SimpleObjectProperty<LocalDate>(LocalDate.now());
+        this.typeMaterial = new SimpleStringProperty("Тест система");
+        this.changeTime = new SimpleStringProperty("");
+
+
+    }
+
 //	/**неполный конструктор tset2**/
 //	public Analyzer(String analyzer,String type,String material,String id, Integer countBox, Integer countintoobx)
 //	{
 //		this.analyzerName = new SimpleStringProperty(analyzer);
 //		this.materialName = new SimpleStringProperty(material);
-//		this.idMAterial = new SimpleStringProperty(id);
+//		this.idMaterial = new SimpleStringProperty(id);
 //		this.countBox = new SimpleIntegerProperty(countBox);
 //		this.countINTOBox = new SimpleIntegerProperty(countintoobx);
 //		this.typeMaterial = new SimpleStringProperty(type);
@@ -67,38 +65,36 @@ public class Analyzer {
 //		
 //        
 //	}
-	
-	//Реальный конструктор
-	public Analyzer(String analyzer,String type,String material,String id, Integer countBox, Integer countintoobx, LocalDate exp, LocalDate add)
-	{
-		this.chengeTime = new SimpleStringProperty("");
-		
-		this.analyzerName = new SimpleStringProperty(analyzer);
-		this.materialName = new SimpleStringProperty(material);
-		this.idMAterial = new SimpleStringProperty(id);
-		this.countBox = new SimpleIntegerProperty(countBox);
-		this.countINTOBox = new SimpleIntegerProperty(countintoobx);
-		this.exp = new SimpleObjectProperty<LocalDate>(exp);
-		this.dateAdd = new SimpleObjectProperty<LocalDate>(add);
-		this.typeMaterial = new SimpleStringProperty(type);
-	
-	}
-	
-	//список изминений
-	public String getChengeTime() {
-        return chengeTime.get();
+
+    //Реальный конструктор
+    public Analyzer(String analyzer, String type, String material, String id, Integer countBox, Integer countintoobx, LocalDate exp, LocalDate add) {
+        this.changeTime = new SimpleStringProperty("");
+        this.analyzerName = new SimpleStringProperty(analyzer);
+        this.materialName = new SimpleStringProperty(material);
+        this.idMaterial = new SimpleStringProperty(id);
+        this.countBox = new SimpleIntegerProperty(countBox);
+        this.countINTOBox = new SimpleIntegerProperty(countintoobx);
+        this.exp = new SimpleObjectProperty<LocalDate>(exp);
+        this.dateAdd = new SimpleObjectProperty<LocalDate>(add);
+        this.typeMaterial = new SimpleStringProperty(type);
+
     }
 
-    public void setChengeTime(String chengeTime) {
-        this.chengeTime.set(chengeTime);
+    //список изминений
+    public String getChangeTime() {
+        return changeTime.get();
     }
 
-    public StringProperty chengeTimeProperty() {
-        return chengeTime;
+    public void setChangeTime(String changeTime) {
+        this.changeTime.set(changeTime);
     }
 
-	//название анализатора гет\сет
-	public String getAnalyzerName() {
+    public StringProperty changeTimeProperty() {
+        return changeTime;
+    }
+
+    //название анализатора гет\сет
+    public String getAnalyzerName() {
         return analyzerName.get();
     }
 
@@ -109,7 +105,7 @@ public class Analyzer {
     public StringProperty analyzerNameProperty() {
         return analyzerName;
     }
-	
+
     //название расходки гет\сет
     public String getMaterialName() {
         return materialName.get();
@@ -122,20 +118,20 @@ public class Analyzer {
     public StringProperty materialNameProperty() {
         return materialName;
     }
-    
+
     //id расходки
-    public String getIdMAterial() {
-        return idMAterial.get();
+    public String getIdMaterial() {
+        return idMaterial.get();
     }
 
-    public void setIdMAterial(String idMAterial) {
-        this.idMAterial.set(idMAterial);
+    public void setIdMaterial(String idMaterial) {
+        this.idMaterial.set(idMaterial);
     }
 
-    public StringProperty idMAterialProperty() {
-        return idMAterial;
+    public StringProperty idMaterialProperty() {
+        return idMaterial;
     }
-    
+
     //кол-во коробок 
     public int getСountBox() {
         return countBox.get();
@@ -148,7 +144,7 @@ public class Analyzer {
     public IntegerProperty countBoxProperty() {
         return countBox;
     }
-    
+
     //кол-во в одной коробке
     public int getСountINTOBox() {
         return countINTOBox.get();
@@ -161,7 +157,7 @@ public class Analyzer {
     public IntegerProperty countINTOBoxProperty() {
         return countINTOBox;
     }
-    
+
     //срок годности
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     public LocalDate getExp() {
@@ -175,7 +171,7 @@ public class Analyzer {
     public ObjectProperty<LocalDate> expProperty() {
         return exp;
     }
-    
+
     //дата поступления
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     public LocalDate getDateAdd() {
@@ -189,7 +185,7 @@ public class Analyzer {
     public ObjectProperty<LocalDate> dateAddProperty() {
         return dateAdd;
     }
-    
+
     //тип расходки
     public String getTypeMaterial() {
         return typeMaterial.get();

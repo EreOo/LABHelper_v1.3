@@ -38,7 +38,7 @@
             <Label text="Срок годности" GridPane.rowIndex="6" />
             <TextField fx:id="analyzerName" prefHeight="25.0" prefWidth="218.0" GridPane.columnIndex="1" />
             <TextField fx:id="materialName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="idMAterial" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="idMaterial" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <DatePicker fx:id="addDate" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <DatePicker fx:id="exp" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <ChoiceBox fx:id="typeMaterial" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />

@@ -6,17 +6,19 @@ import java.time.format.DateTimeParseException;
 
 public class DateUtil {
 
-	 /** Константа даты. Используем для перевода даты в строку */
+    /**
+     * Константа даты. Используем для перевода даты в строку
+     */
     private static final String DATE_PATTERN = "yyyy-MM-dd";
 
     // Форматировщик даты.
-    private static final DateTimeFormatter DATE_FORMATTER = 
+    private static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern(DATE_PATTERN);
 
     /**
      * Возвращает полученную дату в виде хорошо отформатированной строки.
      * Используется определённый выше {@link DateUtil#DATE_PATTERN}.
-     * 
+     *
      * @param date - дата, которая будет возвращена в виде строки
      * @return отформатированную строку
      */
@@ -30,9 +32,9 @@ public class DateUtil {
     /**
      * Преобразует строку, которая отформатирована по правилам
      * шаблона {@link DateUtil#DATE_PATTERN} в объект {@link LocalDate}.
-     * 
+     * <p>
      * Возвращает null, если строка не может быть преобразована.
-     * 
+     *
      * @param dateString - дата в виде String
      * @return объект даты или null, если строка не может быть преобразована
      */
@@ -46,7 +48,7 @@ public class DateUtil {
 
     /**
      * Проверяет, является ли строка корректной датой.
-     * 
+     *
      * @param dateString
      * @return true, если строка является корректной датой
      */
@@ -54,5 +56,5 @@ public class DateUtil {
         // Пытаемся разобрать строку.
         return DateUtil.parse(dateString) != null;
     }
-	
+
 }
