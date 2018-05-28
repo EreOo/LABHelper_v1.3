@@ -29,7 +29,6 @@ import ru.odis.address.view.EditDialogController;
 import ru.odis.address.view.RootLayoutController;
 
 public class MainApp extends Application {
-
     private Stage primaryStage;
     private BorderPane rootLayout;
 
@@ -38,6 +37,19 @@ public class MainApp extends Application {
 
     public static ObservableList<Analyzer> getData() {
         return labItems;
+    }
+
+    //Конструктор
+    public MainApp() {
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        this.primaryStage.setTitle("LABHelper v1.3");
+        this.primaryStage.getIcons().add(new Image("resources/images/microscope.png"));
+        initRootLayout();
+        showMaterialOverview();
     }
 
     // Инициализирует корневой макет.
@@ -102,107 +114,15 @@ public class MainApp extends Application {
         return primaryStage;
     }
 
-    //Конструктор
-    public MainApp() {
-//        // В качестве образца добавляем некоторые данные
-//        labItems.add(new Analyzer("WalkWay", "NBC41"));
-//        labItems.add(new Analyzer("WalkWay", "PBC20"));
-//        labItems.add(new Analyzer("SensiTitre", "GNID"));
-//        labItems.add(new Analyzer("Crystal", "NH"));
-//        labItems.add(new Analyzer("WalkWay", "PC29"));
-//        labItems.add(new Analyzer("SensiTitre", "GPID"));
-//        labItems.add(new Analyzer("SensiTitre", "GP4D"));
-//        labItems.add(new Analyzer("Crystal", "NG"));
-//        labItems.add(new Analyzer("Crystal", "PG"));
-//        labItems.add(new Analyzer("WalkWay", "RYID"));
-//        labItems.add(new Analyzer("SensiTitre", "GP4D"));
-//        labItems.add(new Analyzer("SensiTitre", "GNID"));
-    }
-
     //Возвращает данные в виде наблюдаемого списка.
     public ObservableList<Analyzer> getPersonData() {
         return labItems;
     }
 
-    //кнопка новый
-    public boolean showAddDialog() {
-        try {
-            // Загружаем fxml-файл и создаём новую сцену
-            // для всплывающего диалогового окна.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/AddDialog.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-
-            // Создаём диалоговое окно Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Новые материалы");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            dialogStage.getIcons().add(
-                    new Image("resources/images/microscope.png"));
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            // Передаём  в контроллер.
-            AddDialogController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-
-            // Отображаем диалоговое окно и ждём, пока пользователь его не закроет
-            dialogStage.showAndWait();
-            return controller.isOkClicked();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    // кнопка "изменить"
-    public boolean showEditDialog(Analyzer a) {
-        try {
-            // Загружаем fxml-файл и создаём новую сцену
-            // для всплывающего диалогового окна.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/EditDialog.fxml"));
-
-            AnchorPane page = (AnchorPane) loader.load();
-
-            // Создаём диалоговое окно Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Изменение");
-            dialogStage.getIcons().add(
-                    new Image("resources/images/microscope.png"));
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            // Передаём анализатор
-            EditDialogController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setAnalyzerE(a);
-
-            // Отображаем диалоговое окно и ждём, пока пользователь его не закроет
-            dialogStage.showAndWait();
-
-            return controller.isOkClicked();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("LABHelper v1.3");
-        this.primaryStage.getIcons().add(new Image("resources/images/microscope.png"));
-        initRootLayout();
-        showMaterialOverview();
-    }
-
     public static void main(String[] args) {
         launch(args);
     }
+
     // Если preference не был найден, то возвращается null.
     public File getFilePath() {
         Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
@@ -213,7 +133,6 @@ public class MainApp extends Application {
             return null;
         }
     }
-
 
     /**
      * Задаёт путь текущему загруженному файлу. Этот путь сохраняется

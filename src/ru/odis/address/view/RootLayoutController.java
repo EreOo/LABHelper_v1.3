@@ -7,7 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import ru.odis.address.MainApp;
-import ru.odis.address.model.Analyzer;
+import ru.odis.address.model.buttonstage.ButtonNewItem;
 
 
 /**
@@ -122,7 +122,7 @@ public class RootLayoutController {
     @FXML
     private void newAnalyzer() {
 
-        boolean okClicked = mainApp.showAddDialog();
+        boolean okClicked = new ButtonNewItem().showAddDialog(mainApp.getPrimaryStage());
 
     }
 
