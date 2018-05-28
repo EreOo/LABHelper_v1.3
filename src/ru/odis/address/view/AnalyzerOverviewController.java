@@ -16,12 +16,13 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.FileChooser;
 import ru.odis.address.MainApp;
 import ru.odis.address.model.Analyzer;
+import ru.odis.address.util.FileUtil;
 import ru.odis.address.model.buttonstage.ButtonEditItem;
 import ru.odis.address.model.buttonstage.ButtonNewItem;
 import ru.odis.address.util.DateUtil;
+import ru.odis.address.util.SaveLoadUtil;
 
 public class AnalyzerOverviewController {
 
@@ -175,7 +176,7 @@ public class AnalyzerOverviewController {
 
 
         // Добавление в таблицу данных из наблюдаемого списка
-        analyzerTable.setItems(mainApp.getPersonData());
+        analyzerTable.setItems(mainApp.getLabItems());
     }
 
     /**
@@ -279,51 +280,22 @@ public class AnalyzerOverviewController {
 
     @FXML
     private void handleNew() {
-        mainApp.getPersonData().clear();
-        mainApp.setFilePath(null);
+        mainApp.getLabItems().clear();
+        new FileUtil().setFilePath(null, mainApp.getPrimaryStage());
     }
 
     @FXML
     private void handleOpen() {
-        FileChooser fileChooser = new FileChooser();
-
-        // Задаём фильтр расширений
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-                "XML files (*.xml)", "*.xml");
-        fileChooser.getExtensionFilters().add(extFilter);
-
-        // Показываем диалог загрузки файла
-        File file = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
-
-        mainApp.getPersonData().clear();
-        if (file != null) {
-            mainApp.loadPersonDataFromFile(file);
-        }
+       new SaveLoadUtil().loadFile(mainApp);
     }
 
     @FXML
     private void handleSave() {
-        File personFile = mainApp.getFilePath();
+        File personFile = new FileUtil().getFilePath();
         if (personFile != null) {
-            mainApp.savePersonDataToFile(personFile);
+            new FileUtil().savePersonDataToFile(personFile, mainApp.getPrimaryStage(), mainApp.getLabItems());
         } else {
-                FileChooser fileChooser = new FileChooser();
-
-                // Задаём фильтр расширений
-                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-                        "XML files (*.xml)", "*.xml");
-                fileChooser.getExtensionFilters().add(extFilter);
-
-                // Показываем диалог сохранения файла
-                File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
-
-                if (file != null) {
-                    // Make sure it has the correct extension
-                    if (!file.getPath().endsWith(".xml")) {
-                        file = new File(file.getPath() + ".xml");
-                    }
-                    mainApp.savePersonDataToFile(file);
-                }
+            new SaveLoadUtil().saveFile(mainApp);
         }
     }
 }

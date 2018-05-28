@@ -71,8 +71,7 @@ public class AddDialogController {
         this.dialogStage = dialogStage;
 
     }
-
-
+    
     /**
      * Mетод созданния новых данных
      */
