@@ -11,29 +11,29 @@ import ru.odis.address.util.DateUtil;
 
 public class EditDialogController {
 
-	@FXML
+    @FXML
     private Label analyzerLabel;
-	@FXML
+    @FXML
     private Label nameLabel;
-	@FXML
+    @FXML
     private Label countLabel;
-	@FXML
+    @FXML
     private Label dataLabel;
-	@FXML
+    @FXML
     private Button minus;
-	@FXML
+    @FXML
     private Button plus;
-	@FXML
+    @FXML
     private Button ok;
-	@FXML
+    @FXML
     private Button no;
 
 
     private Stage dialogStage;
     private Analyzer analyzer;
     private boolean okClicked = false;
-    
-     int count = 0;
+
+    int count = 0;
 
     /**
      * Инициализирует класс-контроллер. Этот метод вызывается автоматически
@@ -45,7 +45,7 @@ public class EditDialogController {
 
     /**
      * Устанавливает сцену для этого окна.
-     * 
+     *
      * @param dialogStage
      */
     public void setDialogStage(Stage dialogStage) {
@@ -53,62 +53,50 @@ public class EditDialogController {
     }
 
     // Выводим общую инфу, что будем менять
-    
     public void setAnalyzerE(Analyzer analyzer) {
         this.analyzer = analyzer;
-
-       analyzerLabel.setText(analyzer.getAnalyzerName());
-       nameLabel.setText(analyzer.getMaterialName());
-       countLabel.setText(Integer.toString(analyzer.getСountBox()));
-       dataLabel.setText(DateUtil.format(analyzer.getExp()));
-       
-        
+        analyzerLabel.setText(analyzer.getAnalyzerName());
+        nameLabel.setText(analyzer.getMaterialName());
+        countLabel.setText(Integer.toString(analyzer.getСountBox()));
+        dataLabel.setText(DateUtil.format(analyzer.getExp()));
     }
 
     // Returns true, если пользователь кликнул OK, в другом случае false.
-     
     public boolean isOkClicked() {
         return okClicked;
     }
-    
+
     @FXML
     private void minusB() {
-        
-    	  int i =  Integer.parseInt(countLabel.getText()) - 1;
-    	//счетчик изменений
-  	    count--;
-    	  if(i>= 0){
-      	    countLabel.setText(Integer.toString(i));
-      	  }
+        int i = Integer.parseInt(countLabel.getText()) - 1;
+        //счетчик изменений
+        count--;
+        if (i >= 0) {
+            countLabel.setText(Integer.toString(i));
+        }
     }
-    
+
     @FXML
     private void plusB() {
-        
-    	  int i =  Integer.parseInt(countLabel.getText()) + 1;
-    	  //счетчик изменений
-  	      count ++;
-    	    countLabel.setText(Integer.toString(i));
-    
+        int i = Integer.parseInt(countLabel.getText()) + 1;
+        //счетчик изменений
+        count++;
+        countLabel.setText(Integer.toString(i));
     }
-   
+
     // Вызывается, когда пользователь кликнул по кнопке OK.
-    
     @FXML
     private void okButton() {
-        
-    	    analyzer.setСountBox(Integer.parseInt(countLabel.getText()));
-           
-    	    if(count < 0){
-    	    analyzer.setChangeTime(analyzer.getChangeTime() + "\n" +
-    	    LocalDate.now().toString() +" израсходовано (" + count + ")\n");}
-    else{
-    	    	analyzer.setChangeTime(analyzer.getChangeTime() + "\n" +
-        	    LocalDate.now().toString() +" добавлено (+" + count + ")\n");}
-    	    
-            okClicked = true;
-            dialogStage.close();
-        
+        analyzer.setСountBox(Integer.parseInt(countLabel.getText()));
+        if (count < 0) {
+            analyzer.setChangeTime(analyzer.getChangeTime() + "\n" +
+                    LocalDate.now().toString() + " израсходовано (" + count + ")\n");
+        } else {
+            analyzer.setChangeTime(analyzer.getChangeTime() + "\n" +
+                    LocalDate.now().toString() + " добавлено (+" + count + ")\n");
+        }
+        okClicked = true;
+        dialogStage.close();
     }
 
     /**
@@ -118,4 +106,4 @@ public class EditDialogController {
     private void noButton() {
         dialogStage.close();
     }
-    }
+}
