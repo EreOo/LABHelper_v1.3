@@ -78,7 +78,7 @@
                         <Label text="Кол-во в одной коробке" GridPane.rowIndex="5" />
                         <Label text="Срок годности" GridPane.rowIndex="7" />
                         <Label text="REF  / номер в катологе" GridPane.rowIndex="3" />
-                        <Label fx:id="analyzerNameLable" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="analyzerNameLabel" text="Label" GridPane.columnIndex="1" />
                         <Label fx:id="materialNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label fx:id="idMaterialLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label fx:id="countBoxLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />

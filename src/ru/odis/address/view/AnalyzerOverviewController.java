@@ -26,6 +26,10 @@ import ru.odis.address.util.SaveLoadUtil;
 
 public class AnalyzerOverviewController {
 
+    private static final String GRAY = "-fx-background-color: gray;";
+    private static final String RED = "-fx-background-color: tomato;";
+    private static final String ORANGE = "-fx-background-color: orange;";
+    private static final String YELLOW = "-fx-background-color: khaki;";
     @FXML
     private TableView<Analyzer> analyzerTable;
     @FXML
@@ -36,10 +40,8 @@ public class AnalyzerOverviewController {
     private TableColumn<Analyzer, Number> countBoxColumn;
     @FXML
     private TableColumn<Analyzer, LocalDate> expColumn;
-
-
     @FXML
-    private Label analyzerNameLable;
+    private Label analyzerNameLabel;
     @FXML
     private Label materialNameLabel;
     @FXML
@@ -54,21 +56,17 @@ public class AnalyzerOverviewController {
     private Label addDateLabel;
     @FXML
     private Label typeMaterial;
-
     @FXML
     private TextField filterField;
     @FXML
     private TextArea changeTime;
 
-
-    //setter TableView
     public TableView<Analyzer> getAnalyzerTable() {
         return analyzerTable;
     }
 
-
     // Ссылка на главное приложение.
-    private MainApp mainApp;
+    private MainApp mainApp = new MainApp();
 
     /**
      * Конструктор.
@@ -81,30 +79,21 @@ public class AnalyzerOverviewController {
      * Инициализация класса-контроллера. вызывается автоматически
      * после того, как fxml-файл будет загружен.
      */
-
     @FXML
     private void initialize() {
-
         // Инициализация таблицы
         //анализатор
         analyzerNameColumn.setCellValueFactory(
                 cellData -> cellData.getValue().analyzerNameProperty());
-
         //название материала
         materialNameColumn.setCellValueFactory(
                 cellData -> cellData.getValue().materialNameProperty());
-
-
         //кол-во коробок
         countBoxColumn.setCellValueFactory(
                 cellData -> cellData.getValue().countBoxProperty());
-
-
         //срок годности
         expColumn.setCellValueFactory(
                 cellData -> cellData.getValue().expProperty());
-
-
         //Выделение цветом строк
         //если просроченно или мало коробок
         analyzerTable.setRowFactory(tv -> new TableRow<Analyzer>() {
@@ -114,13 +103,13 @@ public class AnalyzerOverviewController {
                 if (item == null) {
                     setStyle("");
                 } else if (item.getСountBox() == 0) {
-                    setStyle("-fx-background-color: gray;");
+                    setStyle(GRAY);
                 } else if (item.getExp().isBefore(LocalDate.now())) {
-                    setStyle("-fx-background-color: tomato;");
+                    setStyle(RED);
                 } else if (item.getExp().isBefore(LocalDate.now().plus(Period.ofDays(30)))) {
-                    setStyle("-fx-background-color: orange;");
+                    setStyle(ORANGE);
                 } else if (item.getСountBox() <= 5) {
-                    setStyle("-fx-background-color: khaki;");
+                    setStyle(YELLOW);
                 } else {
                     setStyle("");
                 }
@@ -128,9 +117,8 @@ public class AnalyzerOverviewController {
         });
 
 
-        //ФИЛЬТР
-
-        FilteredList<Analyzer> filteredData = new FilteredList<>(MainApp.getData(), p -> true);
+        // фильтр
+        FilteredList<Analyzer> filteredData = new FilteredList<>(mainApp.getLabItems(), p -> true);
 
         filterField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(analyzer -> {
@@ -168,12 +156,9 @@ public class AnalyzerOverviewController {
 
     }
 
-
     //Вызывается главным приложением, которое даёт на себя ссылку.
-
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-
 
         // Добавление в таблицу данных из наблюдаемого списка
         analyzerTable.setItems(mainApp.getLabItems());
@@ -185,7 +170,7 @@ public class AnalyzerOverviewController {
     private void showAnalyzerDetails(Analyzer analyzer) {
         if (analyzer != null) {
             // Заполняем метки информацией из объекта анализатор.
-            analyzerNameLable.setText(analyzer.getAnalyzerName());
+            analyzerNameLabel.setText(analyzer.getAnalyzerName());
             materialNameLabel.setText(analyzer.getMaterialName());
             idMaterialLabel.setText(analyzer.getIdMaterial());
             countBoxLabel.setText(Integer.toString(analyzer.getСountBox()));
@@ -193,13 +178,10 @@ public class AnalyzerOverviewController {
             expLabel.setText(DateUtil.format(analyzer.getExp()));
             addDateLabel.setText(DateUtil.format(analyzer.getDateAdd()));
             typeMaterial.setText(analyzer.getTypeMaterial());
-
             changeTime.setText(analyzer.getChangeTime());
-
-
         } else {
             // Если analyzer = null, то убираем весь текст.
-            analyzerNameLable.setText("");
+            analyzerNameLabel.setText("");
             materialNameLabel.setText("");
             idMaterialLabel.setText("");
             countBoxLabel.setText("");
@@ -216,9 +198,7 @@ public class AnalyzerOverviewController {
      */
     @FXML
     private void deleteAnalyzer() {
-
         int selectedIndex = analyzerTable.getSelectionModel().getSelectedIndex();
-
         //спришивает, точно ли хотят удалить?
         if (selectedIndex >= 0) {
 
@@ -227,19 +207,16 @@ public class AnalyzerOverviewController {
             alert.setTitle("Внимание");
             alert.setHeaderText(null);
             alert.setContentText("Вы уверенны, что хотите удалить данные?");
-
             //кнопки
             ButtonType yes = new ButtonType("Да");
             ButtonType no = new ButtonType("Нет");
-
             //добавляем кнопки в окно диалога
             alert.getButtonTypes().setAll(yes, no);
             alert.showAndWait();
-
             //если да - то удаляем
             if (alert.getResult() == yes) {
                 //MainApp.getData().remove(analyzerTable.getSelectionModel().getFocusedIndex());
-                MainApp.getData().remove(analyzerTable.getSelectionModel().getSelectedItem());
+                mainApp.getLabItems().remove(analyzerTable.getSelectionModel().getSelectedItem());
                 //analyzerTable.getItems().remove(analyzerTable.getSelectionModel());
             }
         } else {
@@ -286,7 +263,7 @@ public class AnalyzerOverviewController {
 
     @FXML
     private void handleOpen() {
-       new SaveLoadUtil().loadFile(mainApp);
+        new SaveLoadUtil().loadFile(mainApp);
     }
 
     @FXML

@@ -1,6 +1,8 @@
 package ru.odis.address.view;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -15,8 +17,6 @@ import ru.odis.address.MainApp;
 import ru.odis.address.model.Analyzer;
 
 public class AddDialogController {
-
-
     @FXML
     private TextField analyzerName;
     @FXML
@@ -33,21 +33,17 @@ public class AddDialogController {
     private DatePicker addDate;
     @FXML
     private ChoiceBox<String> typeMaterial;
+    @FXML
+    protected Button add;
+    @FXML
+    protected Button close;
 
     //список для чойзбокса
-    private ArrayList<String> type = new ArrayList<>();
+    private List<String> type = Arrays.asList("Тест система", "Реагенты", "Другое");
 
-
-    @FXML
-    Button add;
-    @FXML
-    Button close;
-
-
+    private MainApp mainApp = new MainApp();
     private Stage dialogStage;
-    private Analyzer analyzer;
     private boolean okClicked = false;
-
 
     /**
      * Инициализирует класс-контроллер. Этот метод вызывается автоматически
@@ -63,22 +59,15 @@ public class AddDialogController {
      * @param dialogStage
      */
     public void setDialogStage(Stage dialogStage) {
-        type.add("Тест система");
-        type.add("Реагенты");
-        type.add("Другое");
         typeMaterial.setItems(FXCollections.observableArrayList(type));
-
         this.dialogStage = dialogStage;
-
     }
-    
+
     /**
      * Mетод созданния новых данных
      */
     @FXML
     public void newAnalyzer() {
-
-
         //проверка заполнения данных
         if (analyzerName.getText().equals("") ||
                 materialName.getText().equals("") ||
@@ -94,7 +83,7 @@ public class AddDialogController {
         } else {
             //проверка на данные в строках количество, должны быть цифры иначе ловим ошибку.
             try {
-                MainApp.getData().add(new Analyzer(analyzerName.getText(),
+                mainApp.getLabItems().add(new Analyzer(analyzerName.getText(),
                         typeMaterial.getValue(),
                         materialName.getText(),
                         idMaterial.getText(),
@@ -116,9 +105,7 @@ public class AddDialogController {
                 alert.showAndWait();
             }
         }
-
     }
-
 
     /**
      * Вызывается, когда пользователь кликнул по кнопке Cancel.
@@ -129,7 +116,6 @@ public class AddDialogController {
     }
 
     public boolean isOkClicked() {
-
         return okClicked;
     }
 
