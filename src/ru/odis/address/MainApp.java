@@ -23,10 +23,6 @@ public class MainApp extends Application {
 
     // Список расходников.
     private static ObservableList<Analyzer> labItems = FXCollections.observableArrayList();
-//
-//    public static ObservableList<Analyzer> getData() {
-//        return labItems;
-//    }
 
     // Возвращает главную сцену.
     public Stage getPrimaryStage() {

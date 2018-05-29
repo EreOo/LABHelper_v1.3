@@ -116,7 +116,6 @@ public class AnalyzerOverviewController {
             }
         });
 
-
         // фильтр
         FilteredList<Analyzer> filteredData = new FilteredList<>(mainApp.getLabItems(), p -> true);
 
@@ -126,9 +125,7 @@ public class AnalyzerOverviewController {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-
                 String lowerCaseFilter = newValue.toLowerCase();
-
                 if (analyzer.getAnalyzerName().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // filter Analyzer name
                 } else if (analyzer.getMaterialName().toLowerCase().contains(lowerCaseFilter)) {
@@ -139,21 +136,15 @@ public class AnalyzerOverviewController {
         });
 
         SortedList<Analyzer> sortedData = new SortedList<>(filteredData);
-
         sortedData.comparatorProperty().bind(analyzerTable.comparatorProperty());
-
         //  Добавление информации в таблицу.
         analyzerTable.setItems(sortedData);
-
-
         // Очистка дополнительной информации
         showAnalyzerDetails(null);
-
         // Слушаем изменения выбора, и при изменении отображаем
         // дополнительную информацию
         analyzerTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showAnalyzerDetails(newValue));
-
     }
 
     //Вызывается главным приложением, которое даёт на себя ссылку.
@@ -201,7 +192,6 @@ public class AnalyzerOverviewController {
         int selectedIndex = analyzerTable.getSelectionModel().getSelectedIndex();
         //спришивает, точно ли хотят удалить?
         if (selectedIndex >= 0) {
-
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("Внимание");
@@ -228,7 +218,6 @@ public class AnalyzerOverviewController {
             alert.setContentText("Пожалуйста, выберите данные для удаления.");
             alert.showAndWait();
         }
-
     }
 
     //новая запись в таблицу
@@ -240,7 +229,6 @@ public class AnalyzerOverviewController {
     //редактор
     @FXML
     private void editAnalyzer() {
-
         Analyzer selectedA = analyzerTable.getSelectionModel().getSelectedItem();
         if (selectedA != null) {
             boolean okClicked = new ButtonEditItem().showEditDialog(selectedA, mainApp.getPrimaryStage());
@@ -276,9 +264,3 @@ public class AnalyzerOverviewController {
         }
     }
 }
-
-
-
-
-
-
